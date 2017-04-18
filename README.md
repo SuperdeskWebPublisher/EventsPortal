@@ -1,2 +1,2 @@
 # EventsPortal
-PHP/Javascript Application for presentation events managed in Superdesk Planning.
+PHP/Javascript Application to present output of the Superdesk planning component.
