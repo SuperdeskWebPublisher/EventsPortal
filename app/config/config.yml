@@ -1,0 +1,119 @@
+imports:
+    - { resource: "@SWPBridgeBundle/Resources/config/app/config.yml" }
+    - { resource: "@SWPUserBundle/Resources/config/app/config.yml" }
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    secret: '%secret%'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_pgsql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: false
+                mappings:
+                    SWPEventsBundle:
+                        type: yml
+                        prefix: SWP\EventsBundle\Model
+                        dir: Resources/config/doctrine-orm
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: SWP\Bundle\UserBundle\Model\User
+    from_email:
+        address: contact@publisher.dev
+        sender_name: Publisher
+    registration:
+        confirmation:
+            enabled: true
+
+nelmio_api_doc: ~
+
+fos_rest:
+    zone:
+        - { path: ^/api/* }
+    versioning:
+        enabled: false
+    routing_loader:
+        default_format: json
+    view:
+        formats:
+            json: true
+        view_response_listener: false
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+            - { path: "^/api", priorities: ['json'], fallback_format: json, prefer_extension: true }
+            - { path: "^/", stop: true }
+    body_listener:
+        decoders:
+            json: fos_rest.decoder.jsontoform
+    disable_csrf_role: ROLE_API
+    exception:
+        codes:
+            "Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException": 404
+            "SWP\\Bundle\\SettingsBundle\\Exception\\InvalidScopeException": 500
+        messages:
+            "Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException": true
+            "SWP\\Bundle\\SettingsBundle\\Exception\\InvalidScopeException": true
+
+swp_bridge:
+    persistence:
+        orm: true
+
+
+swp_events:
+    persistence:
+        orm: true
+
+swp_settings:
+    persistence:
+        orm: true
+
+swp_user:
+    persistence:
+        orm: true
