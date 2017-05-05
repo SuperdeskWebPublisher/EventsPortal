@@ -2,7 +2,6 @@
 
 namespace SWP\EventsBundle\Model;
 
-class Event
+class Event extends \SWP\Component\Bridge\Model\Event
 {
-
 }

@@ -1,0 +1,3 @@
+SWP\EventsBundle\Model\Event:
+    type: entity
+    table: swp_event
