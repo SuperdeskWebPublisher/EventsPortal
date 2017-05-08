@@ -29,8 +29,10 @@ class ImportCommand extends ContainerAwareCommand
     {
         $client = new GuzzleClient();
 
-        $response = $client->makeCall('https://sdp-master.test.superdesk.org/api/events');
+        $superdeskEventsUrl = $this->getContainer()->getParameter('superdesk_events_url');
         $serializer = $this->getContainer()->get('serializer');
+
+        $response = $client->makeCall($superdeskEventsUrl);
         $events = $serializer->deserialize($response['body'], EventsResponse::class, 'json');
         $manager = $this->getContainer()->get('doctrine')->getManager();
 
@@ -49,6 +51,5 @@ class ImportCommand extends ContainerAwareCommand
         }
 
         $manager->flush();
-        die;
     }
 }
