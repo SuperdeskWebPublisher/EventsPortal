@@ -2,9 +2,6 @@
 
 namespace SWP\EventsBundle\DependencyInjection;
 
-use SWP\Bundle\StorageBundle\Doctrine\ORM\EntityRepository;
-use SWP\Component\Bridge\Model\Event;
-use SWP\Component\Storage\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -33,16 +30,6 @@ class Configuration implements ConfigurationInterface
                                 ->arrayNode('classes')
                                 ->addDefaultsIfNotSet()
                                 ->children()
-//                                    ->arrayNode('event')
-//                                        ->addDefaultsIfNotSet()
-//                                        ->children()
-//                                            ->scalarNode('model')->cannotBeEmpty()->defaultValue(Event::class)->end()
-//                                            ->scalarNode('repository')->defaultValue(EntityRepository::class)->end()
-//                                            ->scalarNode('factory')->defaultValue(Factory::class)->end()
-//                                            ->scalarNode('interface')->defaultValue(null)->end()
-//                                            ->scalarNode('object_manager_name')->defaultValue(null)->end()
-//                                        ->end()
-//                                    ->end()
                                 ->end() // classes
                             ->end()
                         ->end()
