@@ -1,0 +1,7 @@
+services:
+    swp_core.resources_list_response_listener:
+        class: SWP\Component\Common\EventListener\ResourceResponseListener
+        arguments:
+            - "@fos_rest.view_handler"
+        tags:
+            - { name: kernel.event_listener, event: kernel.view }

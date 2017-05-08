@@ -1,0 +1,8 @@
+SWP\EventsBundle\Model\EventsResponse:
+    exclusion_policy: ALL
+    properties:
+        items:
+            serialized_name: _items
+            expose: true
+            type: array<SWP\Component\Bridge\Model\Event>
+
